@@ -9,11 +9,65 @@ module('Acceptance | umbernumber', function(hooks) {
     await visit('/');
 
     assert.equal(currentURL(), '/');
+    assert.dom('nav').exists();
+    assert.dom('h1').hasText('Umber Number');
     assert.dom('h2').hasText('Welcome to Umber Number!');
 
     assert.dom('.jumbo a.button').hasText('About Us');
     await click('.jumbo a.button');
 
     assert.equal(currentURL(), '/about');
+  });
+
+    test('visiting /about', async function(assert) {
+    await visit('/about');
+
+    assert.equal(currentURL(), '/about');
+    assert.dom('nav').exists();
+    assert.dom('h1').hasText('Umber Number');
+    assert.dom('h2').hasText('About Umber Number');
+
+    assert.dom('.jumbo a.button').hasText('Homepage');
+    await click('.jumbo a.button');
+
+    assert.dom('.jumbo a.button').hasText('About Us');
+    await click('.jumbo a.button');
+
+    assert.equal(currentURL(), '/about');
+  });
+
+  test('visiting /getting-in-touch', async function(assert) {
+    await visit('/getting-in-touch');
+
+    assert.equal(currentURL(), '/getting-in-touch');
+    assert.dom('nav').exists();
+    assert.dom('h1').hasText('Umber Number');
+    assert.dom('h2').hasText('Contact Us');
+
+    assert.dom('.jumbo a.button').hasText('Homepage');
+    await click('.jumbo a.button');
+
+    assert.dom('.jumbo a.button').hasText('About Us');
+    await click('.jumbo a.button');
+
+    assert.equal(currentURL(), '/about');
+  });
+
+    test('navigating using the nav-bar', async function(assert) {
+    await visit('/');
+
+    assert.dom('nav').exists();
+    assert.dom('nav a.menu-index').hasText('Umber Number');
+    assert.dom('nav a.menu-about').hasText('About');
+    assert.dom('nav a.menu-contact').hasText('Contact');
+
+    await click('nav a.menu-about');
+    assert.equal(currentURL(), '/about');
+
+    await click('nav a.menu-contact');
+    assert.equal(currentURL(), '/getting-in-touch');
+
+    await click('nav a.menu-index');
+    assert.equal(currentURL(), '/');
   });
 });
