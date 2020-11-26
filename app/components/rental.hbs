@@ -5,8 +5,12 @@
     alt="A picture of {{@rental.title}}"
   />
 
-  <div class="details">
-    <h3>{{@rental.title}}</h3>
+    <div class="details">
+    <h3>
+      <LinkTo @route="rental" @model={{@rental}}>
+        {{@rental.title}}
+      </LinkTo>
+    </h3>
     <div class="detail owner">
       <span>Owner:</span> {{@rental.owner}}
     </div>
